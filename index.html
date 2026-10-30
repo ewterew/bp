@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОРЕДЕЖ — территория открытий</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --green:#baff32;
+  --pink:#ff4d9d;
+  --blue:#8bdfff;
+  --black:#111;
+  --white:#fff;
+  --paper:#f4f4ed;
+  --gray:#777;
+  --border:#deded6;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth}
+body {
+  background:var(--paper);
+  color:var(--black);
+  font-family:'Manrope',sans-serif;
+}
+button {font-family:inherit}
+header {
+  position:sticky;top:0;z-index:100;
+  background:rgba(244,244,237,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav {
+  max-width:1350px;margin:auto;padding:17px 4%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
+}
+.logo {
+  font-family:'Unbounded';font-size:19px;font-weight:800;
+  letter-spacing:-1px;white-space:nowrap;
+}
+.logo span {
+  background:var(--green);padding:5px 8px;
+  border-radius:6px;margin-left:5px;
+}
+.nav-links {display:flex;gap:5px;flex-wrap:wrap}
+.nav-links button {
+  border:0;background:transparent;padding:11px 13px;
+  border-radius:30px;font-size:11px;font-weight:800;
+  cursor:pointer;transition:.2s;
+}
+.nav-links button:hover,
+.nav-links button.active {
+  background:var(--black);color:white;
+}
+.menu-btn {
+  display:none;border:0;background:var(--green);
+  padding:11px 15px;border-radius:30px;font-weight:900;
+}
+.page {display:none;animation:appear .35s ease}
+.page.active {display:block}
+@keyframes appear {
+  from {opacity:0;transform:translateY(10px)}
+  to {opacity:1;transform:translateY(0)}
+}
+.container {max-width:1250px;margin:auto;padding:0 4%}
+.hero {
+  min-height:650px;display:grid;
+  grid-template-columns:1fr 1fr;gap:35px;
+  align-items:center;padding:65px 0;
+}
+.kicker {
+  font-size:10px;font-weight:900;
+  letter-spacing:2.5px;text-transform:uppercase;
+}
+.hero h1 {
+  font-family:'Unbounded';font-size:clamp(45px,7vw,92px);
+  line-height:1.03;letter-spacing:-5px;margin:25px 0;
+}
+.hero h1 .pink {color:var(--pink)}
+.hero h1 .outline {
+  -webkit-text-stroke:2px var(--black);
+  color:transparent;
+}
+.hero-text {
+  color:#555;max-width:540px;font-size:16px;line-height:1.8;
+}
+.buttons {display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn {
+  border:1px solid var(--black);background:var(--black);
+  color:white;padding:15px 22px;border-radius:30px;
+  font-weight:900;font-size:11px;cursor:pointer;
+  transition:.2s;
+}
+.btn:hover {transform:translateY(-3px);box-shadow:4px 5px 0 var(--pink)}
+.btn.light {background:transparent;color:var(--black)}
+.hero-image {
+  height:480px;border-radius:30px;overflow:hidden;
+  position:relative;background:#a8cda1;
+}
+.hero-image img {
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(1.15);
+}
+.image-label {
+  position:absolute;bottom:20px;left:20px;
+  background:var(--green);padding:15px 18px;
+  border-radius:14px;font-family:'Unbounded';
+  font-size:13px;font-weight:700;
+}
+.round-label {
+  position:absolute;right:20px;top:20px;
+  width:105px;height:105px;border-radius:50%;
+  background:var(--pink);display:grid;place-items:center;
+  text-align:center;font-size:11px;font-weight:900;
+  transform:rotate(10deg);
+}
+.marquee {
+  background:var(--green);overflow:hidden;
+  padding:18px 0;white-space:nowrap;
+  font-family:'Unbounded';font-size:18px;font-weight:800;
+}
+.marquee span {display:inline-block;animation:move 25s linear infinite}
+@keyframes move {to {transform:translateX(-50%)}}
+.section {padding:85px 0}
+.section-heading {
+  display:flex;justify-content:space-between;
+  align-items:end;gap:30px;margin-bottom:35px;
+}
+.section-heading h2 {
+  font-family:'Unbounded';font-size:clamp(30px,5vw,55px);
+  line-height:1.15;letter-spacing:-2px;margin-top:12px;
+}
+.section-heading p {
+  max-width:430px;color:var(--gray);
+  font-size:13px;line-height:1.8;
+}
+.green-text {color:#83bd12}
+.pink-text {color:var(--pink)}
+.cards {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:17px;
+}
+.card {
+  background:white;border:1px solid var(--border);
+  border-radius:22px;padding:25px;
+}
+.card h3 {
+  font-family:'Unbounded';font-size:17px;
+  line-height:1.4;margin:17px 0 12px;
+}
+.card p {font-size:13px;color:#666;line-height:1.8}
+.card-number {
+  font-family:'Unbounded';font-size:28px;
+  color:var(--pink);
+}
+.tag {
+  display:inline-block;background:var(--green);
+  padding:7px 11px;border-radius:20px;
+  font-size:9px;font-weight:900;letter-spacing:1px;
+}
+.tag.pink {background:#ffd0e4}
+.tag.blue {background:#d6f3ff}
+.photo-card {
+  height:220px;border-radius:15px;overflow:hidden;
+}
+.photo-card img {width:100%;height:100%;object-fit:cover}
+.dark-block {
+  background:var(--black);color:white;
+  padding:65px;border-radius:28px;
+}
+.dark-block h2 {
+  font:700 clamp(30px,5vw,52px)/1.2 'Unbounded';
+  margin:15px 0;
+}
+.dark-block p {color:#ccc;line-height:1.8;max-width:750px}
+.page-top {padding:75px 0 35px}
+.page-top h1 {
+  font:800 clamp(38px,6vw,70px)/1.1 'Unbounded';
+  letter-spacing:-3px;margin:15px 0;
+}
+.page-top p {max-width:750px;color:#666;line-height:1.8}
+.notice {
+  background:#fff1cf;border:1px solid #ead9a8;
+  padding:18px 20px;border-radius:15px;
+  font-size:12px;line-height:1.7;margin:20px 0;
+}
+.notice strong {display:block;margin-bottom:5px}
+.partner-grid {
+  display:grid;grid-template-columns:repeat(2,1fr);gap:17px;
+}
+.partner {
+  background:white;border:1px solid var(--border);
+  border-radius:22px;padding:25px;
+}
+.partner-top {
+  display:flex;justify-content:space-between;
+  align-items:center;gap:15px;
+}
+.partner-logo {
+  width:65px;height:65px;border-radius:17px;
+  display:grid;place-items:center;
+  background:var(--green);font:800 19px 'Unbounded';
+}
+.partner h3 {
+  font:700 19px 'Unbounded';margin:20px 0 8px;
+}
+.partner p {font-size:13px;color:#666;line-height:1.8}
+.partner details {margin-top:18px;border-top:1px solid var(--border);padding-top:15px}
+.partner summary {cursor:pointer;font-size:12px;font-weight:900}
+.partner details p {margin-top:12px}
+.status {
+  font-size:9px;font-weight:900;padding:8px 10px;
+  background:#fff0c9;border-radius:20px;
+}
+.status.confirmed {background:#d9ffd0}
+
+/* НОВЫЙ БЛОК: СПбГУ И ВКЗ */
+.partner-featured {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin:25px 0 55px;
+}
+.featured-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:24px;
+  overflow:hidden;
+  transition:.25s;
+}
+.featured-card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+.featured-image {
+  height:260px;
+  overflow:hidden;
+  background:#e4e4dc;
+}
+.featured-image img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:.4s;
+}
+.featured-card:hover .featured-image img {
+  transform:scale(1.04);
+}
+.featured-content {
+  padding:25px;
+}
+.featured-content h3 {
+  font:700 20px 'Unbounded';
+  line-height:1.4;
+  margin:15px 0 10px;
+}
+.featured-content p {
+  color:#666;
+  font-size:13px;
+  line-height:1.8;
+}
+.featured-label {
+  display:inline-block;
+  background:var(--green);
+  padding:7px 11px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.featured-card:nth-child(2) .featured-label {
+  background:#ffd0e4;
+}
+.partner-subtitle {
+  font:700 25px 'Unbounded';
+  margin:45px 0 20px;
+}
+.interview-list {display:grid;gap:20px}
+.interview {
+  background:white;border:1px solid var(--border);
+  border-radius:22px;padding:28px;
+}
+.interview h3 {
+  font:700 21px 'Unbounded';margin:15px 0 8px;
+}
+.interview .position {font-size:12px;color:#777}
+.question {
+  border-top:1px solid var(--border);
+  padding:17px 0;
+}
+.question b {font-size:13px}
+.question p {font-size:13px;color:#666;line-height:1.8;margin-top:8px}
+.quote {
+  background:var(--black);color:white;padding:22px;
+  border-radius:15px;margin-top:15px;
+  font:600 15px/1.7 'Unbounded';
+}
+.quote small {
+  display:block;color:#aaa;font:10px Manrope;
+  margin-top:12px;
+}
+.map-layout {
+  display:grid;grid-template-columns:1.3fr .7fr;gap:20px;
+}
+.map-box {
+  background:#dcefd2;border-radius:25px;padding:15px;
+}
+.map-box svg {width:100%;height:auto}
+.map-point {cursor:pointer}
+.map-point:hover circle {fill:var(--pink)}
+.map-list {display:grid;gap:10px}
+.map-list button {
+  text-align:left;background:white;
+  border:1px solid var(--border);padding:18px;
+  border-radius:15px;cursor:pointer;
+}
+.map-list button.selected {border:2px solid var(--pink)}
+.map-list b {display:block;font-size:13px}
+.map-list small {display:block;color:#777;margin-top:5px;line-height:1.5}
+.map-description {
+  background:white;border-radius:16px;padding:20px;
+  font-size:13px;line-height:1.8;
+}
+.steps {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
+}
+.step {background:var(--green);padding:25px;border-radius:20px}
+.step:nth-child(2) {background:#ffd0e4}
+.step:nth-child(3) {background:#d6f3ff}
+.step b {font:700 13px 'Unbounded'}
+.step p {font-size:12px;line-height:1.7;margin-top:13px}
+.budget-layout {
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;
+}
+.budget-box {background:white;border-radius:22px;padding:25px}
+.budget-row {
+  display:flex;justify-content:space-between;
+  align-items:center;gap:10px;padding:14px 0;
+  border-bottom:1px solid var(--border);font-size:12px;
+}
+.budget-row input {
+  width:115px;padding:9px;border:1px solid var(--border);
+  border-radius:9px;font-weight:800;
+}
+.total {
+  font:700 25px 'Unbounded';margin-top:25px;
+}
+.resource-list {list-style:none}
+.resource-list li {
+  padding:15px 0;border-bottom:1px solid var(--border);
+  font-size:13px;line-height:1.6;
+}
+.resource-list li:before {content:"↗";color:var(--pink);font-weight:900;margin-right:12px}
+footer {background:var(--black);color:white;padding:55px 0;margin-top:70px}
+footer p {color:#aaa;font-size:12px;line-height:1.8;margin-top:15px;max-width:600px}
+.footer-bottom {
+  border-top:1px solid #333;margin-top:30px;padding-top:20px;
+  color:#777;font-size:10px;
+}
+@media(max-width:900px) {
+  .nav {flex-wrap:wrap}
+  .nav-links {display:none;width:100%;flex-direction:column}
+  .nav-links.open {display:flex}
+  .nav-links button {text-align:left}
+  .menu-btn {display:block}
+  .hero {grid-template-columns:1fr;padding-top:40px}
+  .hero-image {height:350px}
+  .cards {grid-template-columns:1fr 1fr}
+  .map-layout,.budget-layout {grid-template-columns:1fr}
+}
+@media(max-width:600px) {
+  .cards,.partner-grid,.steps,.partner-featured {grid-template-columns:1fr}
+  .hero h1 {letter-spacing:-2px}
+  .hero-image {height:280px}
+  .section-heading {display:block}
+  .section-heading p {margin-top:15px}
+  .dark-block {padding:30px}
+  .featured-image {height:220px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="nav">
+  <div class="logo">ОРЕДЕЖ<span>↗</span></div>
+  <nav class="nav-links" id="navigation">
+   <button class="active" data-page="home">Главная</button>
+   <button data-page="route">Маршрут</button>
+   <button data-page="project">О проекте</button>
+   <button data-page="partners">Партнёры</button>
+   <button data-page="interviews">Интервью</button>
+   <button data-page="resources">Ресурсы</button>
+   <button data-page="budget">Бюджет</button>
+  </nav>
+  <button class="menu-btn" id="menu">МЕНЮ</button>
+ </div>
+</header>
+
+<main>
+
+<!-- ГЛАВНАЯ — СОХРАНЕНА -->
+<section class="page active" id="home">
+ <div class="container">
+  <div class="hero">
+   <div>
+    <div class="kicker">ЛЕНИНГРАДСКАЯ ОБЛАСТЬ · МОЛОДЁЖНЫЙ ПРОЕКТ</div>
+    <h1>ТВОЙ КРАЙ.<br><span class="pink">ТВОИ</span><br><span class="outline">ОТКРЫТИЯ.</span></h1>
+    <p class="hero-text">
+     Оредеж — проект о путешествиях, природе и истории Ленинградской области.
+     Мы предлагаем подросткам не просто смотреть на окружающий мир,
+     а исследовать его, задавать вопросы, работать в команде
+     и открывать новые места самостоятельно.
+    </p>
+    <div class="buttons">
+     <button class="btn" data-open="route">ИЗУЧИТЬ МАРШРУТ ↗</button>
+     <button class="btn light" data-open="project">О ПРОЕКТЕ</button>
+    </div>
+   </div>
+   <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85" alt="Природный пейзаж">
+    <div class="round-label">ОТКРЫВАЙ<br>СВОЮ<br>ОБЛАСТЬ</div>
+    <div class="image-label">БОЛЬШЕ, ЧЕМ ЭКСКУРСИЯ</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="marquee"><span>
+  ИССЛЕДУЙ · ОТКРЫВАЙ · СОЗДАВАЙ · ИССЛЕДУЙ · ОТКРЫВАЙ · СОЗДАВАЙ · ИССЛЕДУЙ · ОТКРЫВАЙ · СОЗДАВАЙ ·
+ </span></div>
+
+ <div class="container">
+  <div class="section">
+   <div class="section-heading">
+    <div><div class="kicker">01 / ИДЕЯ</div><h2>Не просто<br>посмотреть.<br><span class="pink-text">Почувствовать.</span></h2></div>
+    <p>Мы хотим превратить знакомство с Ленинградской областью в настоящее приключение с исследовательскими заданиями, историческими открытиями и командной работой.</p>
+   </div>
+   <div class="cards">
+    <article class="card">
+     <div class="card-number">01</div><span class="tag">ПРИРОДА</span>
+     <h3>Увидеть больше</h3>
+     <p>Узнать особенности рек, лесов и природных территорий, научиться замечать детали и бережно относиться к окружающей среде.</p>
+    </article>
+    <article class="card">
+     <div class="card-number">02</div><span class="tag pink">ИСТОРИЯ</span>
+     <h3>Открыть прошлое</h3>
+     <p>Познакомиться с историей мест, культурным наследием и людьми, которые формировали облик Ленинградской области.</p>
+    </article>
+    <article class="card">
+     <div class="card-number">03</div><span class="tag blue">КОМАНДА</span>
+     <h3>Создать своё</h3>
+     <p>Выполнять задания, обсуждать наблюдения, создавать медиаматериалы и делиться собственными открытиями.</p>
+    </article>
+   </div>
+  </div>
+
+  <div class="dark-block">
+   <div class="kicker">НАША ФИЛОСОФИЯ</div>
+   <h2>Территория становится ближе, когда ты её исследуешь.</h2>
+   <p>Мы верим, что путешествие может быть не только отдыхом, но и способом узнать больше о своём регионе, научиться работать с информацией и почувствовать связь с местом, в котором живёшь.</p>
+   <button class="btn" data-open="partners">НАШИ ПАРТНЁРЫ ↗</button>
+  </div>
+
+  <div class="section">
+   <div class="section-heading">
+    <div><div class="kicker">02 / ВИЗУАЛЬНЫЙ МИР</div><h2>Природа<br>рядом с нами</h2></div>
+    <p>Реки, леса, берега и исторические места — пространство, в котором можно найти сотни интересных историй.</p>
+   </div>
+   <div class="cards">
+    <div class="card"><div class="photo-card"><img src="https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=900&q=80" alt="Лесная река"></div><h3>Реки и берега</h3><p>Природные особенности и водные ландшафты региона.</p></div>
+    <div class="card"><div class="photo-card"><img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80" alt="Лес"></div><h3>Лесные территории</h3><p>Экологические наблюдения и знакомство с природой.</p></div>
+    <div class="card"><div class="photo-card"><img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="Архитектура"></div><h3>История мест</h3><p>Культурное наследие и исторические сюжеты.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- МАРШРУТ -->
+<section class="page" id="route">
+ <div class="container">
+  <div class="page-top">
+   <div class="kicker">01 / ГЕОГРАФИЯ ПРОЕКТА</div>
+   <h1>МАРШРУТ<br><span class="pink-text">ОТКРЫТИЙ</span></h1>
+   <p>В центре нашей концепции — территория реки Оредеж и природно-исторические объекты Ленинградской области. Карта ниже носит иллюстративный характер: точная линия маршрута и остановки требуют отдельной проверки.</p>
+  </div>
+
+  <div class="map-layout">
+   <div class="map-box">
+    <svg viewBox="0 0 700 520" role="img" aria-label="Схематичная карта Ленинградской области">
+     <path d="M145 35 Q245 5 315 50 Q420 12 500 75 Q635 90 610 200 Q680 285 590 365 Q550 470 430 450 Q325 520 230 450 Q105 475 75 365 Q10 275 80 205 Q25 110 145 35Z" fill="#c9e5bd" stroke="#83a878" stroke-width="4"/>
+     <g fill="none" stroke="#83cde9" stroke-width="11" stroke-linecap="round">
+      <path d="M100 160 Q200 95 280 170 T450 160 T600 230"/>
+      <path d="M95 320 Q190 260 280 310 T500 350"/>
+      <path d="M300 45 Q245 140 310 230 T350 440"/>
+     </g>
+     <g font-family="Manrope" font-weight="800" fill="#387d91" font-size="15">
+      <text x="390" y="115">ЛАДОЖСКОЕ ОЗЕРО</text>
+      <text x="120" y="290">РЕКИ</text>
+     </g>
+     <g class="map-point" data-point="oredezh">
+      <circle cx="320" cy="355" r="19" fill="#ff4d9d" stroke="#111" stroke-width="3"/>
+      <text x="345" y="361" font-size="18" font-weight="800">ОРЕДЕЖ</text>
+     </g>
+     <g class="map-point" data-point="vsevolozhsk">
+      <circle cx="470" cy="195" r="15" fill="#baff32" stroke="#111" stroke-width="3"/>
+      <text x="490" y="201" font-size="15" font-weight="800">ВСЕВОЛОЖСК</text>
+     </g>
+     <g class="map-point" data-point="gatchina">
+      <circle cx="175" cy="285" r="15" fill="#8bdfff" stroke="#111" stroke-width="3"/>
+      <text x="195" y="291" font-size="15" font-weight="800">ГАТЧИНА</text>
+     </g>
+     <text x="350" y="495" text-anchor="middle" font-size="11" fill="#56734c">УСЛОВНАЯ СХЕМА, НЕ НАВИГАЦИОННАЯ КАРТА</text>
+    </svg>
+   </div>
+   <div class="map-list">
+    <button class="selected" data-place="oredezh"><b>Река Оредеж</b><small>Основная территория исследования проекта.</small></button>
+    <button data-place="vsevolozhsk"><b>Всеволожск</b><small>Место реализации инициативы и поиска партнёров.</small></button>
+    <button data-place="gatchina"><b>Гатчина</b><small>Пример историко-культурного направления региона.</small></button>
+    <div class="map-description" id="place-info"><b>Река Оредеж</b><br>Исследование природной территории, истории местности и возможностей для познавательных командных заданий.</div>
+   </div>
+  </div>
+
+  <div class="section">
+   <div class="section-heading"><div><div class="kicker">02 / СЦЕНАРИЙ</div><h2>Как устроено<br>путешествие?</h2></div><p>Участники не остаются просто зрителями. Каждый этап предполагает активное участие, исследование и собственный результат.</p></div>
+   <div class="steps">
+    <div class="step"><b>01 / ПОДГОТОВКА</b><p>Знакомство с территорией, историческими материалами, правилами посещения и задачами команды.</p></div>
+    <div class="step"><b>02 / ИССЛЕДОВАНИЕ</b><p>Наблюдение за природой, изучение объектов, командные задания и сбор интересных фактов.</p></div>
+    <div class="step"><b>03 / ОТКРЫТИЕ</b><p>Обсуждение результатов, создание фотоистории и презентация собственных наблюдений.</p></div>
+   </div>
+  </div>
+  <div class="notice"><strong>Важно об организации</strong>Водная тематика является частью концепции проекта. Любые водные активности несовершеннолетних требуют отдельной профессиональной оценки, разрешений, надлежащего сопровождения и безопасных условий. Этот сайт не является инструкцией по сплаву или готовым маршрутом.</div>
+ </div>
+</section>
+
+<!-- О ПРОЕКТЕ -->
+<section class="page" id="project">
+ <div class="container">
+  <div class="page-top">
+   <div class="kicker">02 / НАША ИНИЦИАТИВА</div>
+   <h1>ЗАЧЕМ МЫ<br><span class="pink-text">ЭТО ДЕЛАЕМ?</span></h1>
+   <p>Мы хотим создать современный туристско-краеведческий формат для подростков, который объединяет знакомство с природой, историей и культурой Ленинградской области.</p>
+  </div>
+  <div class="dark-block">
+   <div class="kicker">КОНЦЕПЦИЯ ПРОЕКТА</div>
+   <h2>Оредеж — молодёжный маршрут, который превращает знакомство с Ленинградской областью в интерактивное исследование.</h2>
+   <p>Вместо обычного экскурсионного рассказа участники получают возможность самостоятельно изучать территорию, выполнять командные задания, узнавать исторические факты, наблюдать за природой и создавать собственные медиаматериалы. Проект направлен на развитие интереса к родному краю, экологической культуры, самостоятельности и командного взаимодействия.</p>
+  </div>
+  <div class="section">
+   <div class="section-heading"><div><div class="kicker">МИССИЯ И ЦЕЛИ</div><h2>Что мы хотим<br>изменить?</h2></div></div>
+   <div class="cards">
+    <div class="card"><span class="tag">МИССИЯ</span><h3>Открывать родной край</h3><p>Формировать у подростков интерес к природному и историческому наследию Ленинградской области.</p></div>
+    <div class="card"><span class="tag pink">ЦЕЛЬ</span><h3>Создать новый формат</h3><p>Разработать познавательный молодёжный маршрут с интерактивными заданиями и командной работой.</p></div>
+    <div class="card"><span class="tag blue">РЕЗУЛЬТАТ</span><h3>Вовлечь молодёжь</h3><p>Помочь подросткам стать активными исследователями территории, а не только слушателями экскурсии.</p></div>
+   </div>
+  </div>
+  <div class="section">
+   <div class="section-heading"><div><div class="kicker">ЦЕЛЕВАЯ АУДИТОРИЯ</div><h2>Для кого<br>этот проект?</h2></div></div>
+   <div class="card">
+    <h3>Подростки и молодёжь</h3>
+    <p>В первую очередь проект ориентирован на школьников, которым интересны путешествия, природа, история, фотография, командные активности и новые форматы досуга.</p>
+    <br>
+    <h3>Образовательные организации</h3>
+    <p>Школы, учреждения дополнительного образования и молодёжные объединения могут использовать маршрут как дополнительный формат краеведческой и экологической работы.</p>
+    <br>
+    <h3>Партнёры и эксперты</h3>
+    <p>Организации, специалисты и представители туристической сферы могут помочь сделать проект содержательным, качественным и реализуемым.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ПАРТНЁРЫ -->
+<section class="page" id="partners">
+ <div class="container">
+  <div class="page-top">
+   <div class="kicker">03 / ЛЮДИ И ОРГАНИЗАЦИИ</div>
+   <h1>СОЗДАЁМ<br><span class="pink-text">ВМЕСТЕ.</span></h1>
+   <p>Партнёрская сеть проекта объединяет образовательные учреждения, туристические организации, предприятия и экспертов. Каждый партнёр может внести свой вклад — от консультации до организационной помощи.</p>
+  </div>
+
+  <div class="partner-subtitle">Организации проекта</div>
+  <div class="partner-featured">
+   <article class="featured-card">
+    <div class="featured-image">
+     <img src="images/spbgu.jpg" alt="Санкт-Петербургский государственный университет">
+    </div>
+    <div class="featured-content">
+     <span class="featured-label">ОБРАЗОВАНИЕ И НАУКА</span>
+     <h3>Санкт-Петербургский государственный университет</h3>
+     <p>Возможное направление взаимодействия — экспертные консультации, исследовательская и методическая поддержка проекта, проверка информационных материалов.</p>
+     <p style="margin-top:12px"><a href="https://spbu.ru/" target="_blank" rel="noopener" style="color:#111;font-weight:900">Официальный сайт СПбГУ ↗</a></p>
+    </div>
+   </article>
+
+   <article class="featured-card">
+    <div class="featured-image">
+     <img src="images/vkz.jpg" alt="Всеволожский крановый завод">
+    </div>
+    <div class="featured-content">
+     <span class="featured-label">ПРЕДПРИЯТИЕ РЕГИОНА</span>
+     <h3>Всеволожский крановый завод</h3>
+     <p>Возможное направление взаимодействия — информационная, организационная или материальная поддержка молодёжной инициативы по согласованию с предприятием.</p>
+     <p style="margin-top:12px"><a href="https://werker.ru/" target="_blank" rel="noopener" style="color:#111;font-weight:900">Официальный сайт предприятия ↗</a></p>
+    </div>
+   </article>
+  </div>
+
+  <div class="partner-subtitle">Потенциальные партнёры</div>
+  <div class="partner-grid" id="partners-container"></div>
+ </div>
+</section>
+
+<!-- ИНТЕРВЬЮ -->
+<section class="page" id="interviews">
+ <div class="container">
+  <div class="page-top">
+   <div class="kicker">04 / МНЕНИЯ И ЭКСПЕРТНЫЙ ВЗГЛЯД</div>
+   <h1>ГОВОРИМ<br><span class="pink-text">О ГЛАВНОМ.</span></h1>
+   <p>Вопросы для специалистов в сфере туризма, образования, экологии и культуры. Интервью помогут проверить идею проекта, уточнить содержание маршрута и определить возможности сотрудничества.</p>
+  </div>
+  <div class="interview-list" id="interviews-container"></div>
+ </div>
+</section>
+
+<!-- РЕСУРСЫ -->
+<section class="page" id="resources">
+ <div class="container">
+  <div class="page-top">
+   <div class="kicker">05 / ЧТО НУЖНО ДЛЯ РЕАЛИЗАЦИИ</div>
+   <h1>РЕСУРСЫ<br><span class="pink-text">ПРОЕКТА.</span></h1>
+   <p>Для реализации проекта необходимы человеческие, информационные, организационные, материальные и финансовые ресурсы.</p>
+  </div>
+  <div class="cards">
+   <div class="card"><span class="tag">01</span><h3>Человеческие</h3><p>Команда проекта, педагоги, экскурсоводы, специалисты по краеведению и экологии, профессиональные организаторы мероприятий.</p></div>
+   <div class="card"><span class="tag pink">02</span><h3>Информационные</h3><p>Исторические материалы, карты, фотографии, сведения о природных объектах, экспертные консультации и результаты опросов.</p></div>
+   <div class="card"><span class="tag blue">03</span><h3>Материальные</h3><p>Печатные материалы, канцелярия, оборудование для фиксации результатов, информационные стенды и средства связи.</p></div>
+   <div class="card"><span class="tag">04</span><h3>Организационные</h3><p>Согласования с организациями, разрешения на посещение территорий, транспорт, сопровождение и план безопасности.</p></div>
+   <div class="card"><span class="tag pink">05</span><h3>Цифровые</h3><p>Сайт проекта, интерактивная карта, электронный путеводитель, презентации и публикации в социальных сетях.</p></div>
+   <div class="card"><span class="tag blue">06</span><h3>Финансовые</h3><p>Средства на печать, организацию, информационное оформление, логистику и необходимые услуги специалистов.</p></div>
+  </div>
+  <div class="section">
+   <div class="dark-block">
+    <div class="kicker">ПАРТНЁРСКАЯ ПОМОЩЬ</div>
+    <h2>Не обязательно помогать деньгами.</h2>
+    <p>Партнёр может предоставить экспертную консультацию, помочь с информацией, площадкой, оборудованием, печатью материалов или организацией отдельного этапа проекта. Даже небольшой вклад может оказаться важным.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- БЮДЖЕТ -->
+<section class="page" id="budget">
+ <div class="container">
+  <div class="page-top">
+   <div class="kicker">06 / ФИНАНСОВАЯ МОДЕЛЬ</div>
+   <h1>СКОЛЬКО<br><span class="pink-text">ЭТО СТОИТ?</span></h1>
+   <p>Предварительная смета помогает оценить ресурсы, необходимые для подготовки и реализации проекта. Все значения ниже условные — их нужно заменить коммерческими предложениями и реальными расчётами.</p>
+  </div>
+  <div class="budget-layout">
+   <div class="budget-box">
+    <span class="tag">СТАТЬИ РАСХОДОВ</span>
+    <h3 style="font-family:Unbounded;margin:18px 0">Что потребуется?</h3>
+    <ul class="resource-list">
+     <li>Разработка и печать карт, заданий и информационных материалов.</li>
+     <li>Канцелярские принадлежности и расходные материалы.</li>
+     <li>Создание сайта и цифрового путеводителя.</li>
+     <li>Организационные и транспортные расходы.</li>
+     <li>Услуги специалистов и сопровождение мероприятия.</li>
+     <li>Необходимые меры безопасности и организационное обеспечение.</li>
+    </ul>
+   </div>
+   <div class="budget-box">
+    <span class="tag pink">КАЛЬКУЛЯТОР</span>
+    <h3 style="font-family:Unbounded;margin:18px 0">Черновая смета</h3>
+    <div id="budget-rows"></div>
+    <div class="total">ИТОГО: <span id="budget-total">0 ₽</span></div>
+    <p style="font-size:11px;color:#888;margin-top:15px">Изменяй суммы — итог пересчитается автоматически. Значения примерные, не являются предложением поставщика.</p>
+   </div>
+  </div>
+  <div class="section">
+   <div class="section-heading"><div><div class="kicker">ИСТОЧНИКИ ПОДДЕРЖКИ</div><h2>Откуда взять<br>ресурсы?</h2></div></div>
+   <div class="cards">
+    <div class="card"><h3>Партнёрская помощь</h3><p>Печать материалов, предоставление площадки, оборудования или консультаций.</p></div>
+    <div class="card"><h3>Грантовая поддержка</h3><p>Участие в конкурсах молодёжных, образовательных и туристических инициатив.</p></div>
+    <div class="card"><h3>Собственные ресурсы</h3><p>Волонтёрская работа команды, цифровые материалы и информационная поддержка.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+</main>
+
+<footer>
+ <div class="container">
+  <div class="logo">ОРЕДЕЖ<span>↗</span></div>
+  <p>Молодёжный туристско-краеведческий проект Ленинградской области. Исследуй. Открывай. Делись.</p>
+  <div class="footer-bottom">БОЛЬШАЯ ПЕРЕМЕНА · 2026 · КОНЦЕПЦИЯ ПРОЕКТА</div>
+ </div>
+</footer>
+
+<script>
+// ПОТЕНЦИАЛЬНЫЕ ПАРТНЁРЫ
+const partners = [
+ {
+  name:"Дирекция особо охраняемых природных территорий Ленинградской области",
+  short:"ООПТ",
+  status:"Потенциальный партнёр",
+  type:"Экологическая экспертиза",
+  interest:"Проект может развивать экологическую культуру и ответственное отношение к природным территориям.",
+  help:"Консультация о правилах посещения, природных особенностях и допустимой нагрузке на территорию.",
+  limits:"Не все природные территории подходят для групповых мероприятий; необходима проверка режима посещения.",
+  refusal:"Отказ возможен, если выбранная территория имеет ограничения или проект не соответствует режиму её охраны."
+ },
+ {
+  name:"Русское географическое общество",
+  short:"РГО",
+  status:"Потенциальный партнёр",
+  type:"Краеведческая и географическая экспертиза",
+  interest:"Исследование природы и географии родного региона соответствует просветительской направленности проекта.",
+  help:"Консультации, рекомендации по природным объектам, помощь с проверкой географической информации.",
+  limits:"Участие зависит от возможностей регионального отделения и тематического соответствия.",
+  refusal:"Возможен отказ из-за занятости экспертов или отсутствия подходящей программы сотрудничества."
+ },
+ {
+  name:"Информационно-туристский центр Ленинградской области",
+  short:"ТИЦ",
+  status:"Потенциальный партнёр",
+  type:"Информационная поддержка",
+  interest:"Новый молодёжный маршрут может дополнить представление о туристических возможностях региона.",
+  help:"Консультации по продвижению, рекомендации по описанию маршрута, информационные материалы.",
+  limits:"Размещение и продвижение возможно после проверки информации и соответствия требованиям организации.",
+  refusal:"Отказ возможен, если у центра нет возможности сопровождать отдельную инициативу."
+ },
+ {
+  name:"ДДЮТ Всеволожского района",
+  short:"ДДЮТ",
+  status:"Потенциальный партнёр",
+  type:"Образовательная и методическая помощь",
+  interest:"Проект может дополнить туристско-краеведческую деятельность и предложить подросткам новый формат познавательного досуга.",
+  help:"Консультации педагогов, рекомендации по заданиям, возможная апробация образовательного сценария.",
+  limits:"Нужно согласовать расписание, ответственность и участие педагогов.",
+  refusal:"Отказ может быть связан с загруженностью сотрудников и отсутствием организационных возможностей."
+ },
+ {
+  name:"Музейный комплекс «Дорога жизни»",
+  short:"МУЗЕЙ",
+  status:"Потенциальный партнёр",
+  type:"Историческая и музейная экспертиза",
+  interest:"Маршрут может познакомить подростков с историей региона и значением музейных пространств.",
+  help:"Рекомендации по историческим материалам, консультация о музейных программах и возможных форматах знакомства с историей.",
+  limits:"Любые посещения и мероприятия необходимо согласовывать с музеем.",
+  refusal:"Отказ возможен из-за графика мероприятий, ограничений площадки или отсутствия ресурсов."
+ }
+];
+
+document.getElementById("partners-container").innerHTML = partners.map(p=>`
+ <article class="partner">
+  <div class="partner-top">
+   <div class="partner-logo">${p.short}</div>
+   <span class="status">${p.status}</span>
+  </div>
+  <h3>${p.name}</h3>
+  <p><b>Предполагаемый формат:</b> ${p.type}</p>
+  <details>
+   <summary>Подробнее о сотрудничестве</summary>
+   <p><b>Почему партнёру может быть интересно:</b><br>${p.interest}</p>
+   <p><b>Чем он может помочь:</b><br>${p.help}</p>
+   <p><b>Возможные ограничения:</b><br>${p.limits}</p>
+   <p><b>Возможная причина отказа:</b><br>${p.refusal}</p>
+  </details>
+ </article>
+`).join("");
+
+// ВОПРОСЫ ДЛЯ ИНТЕРВЬЮ
+const interviews = [
+ {
+  name:"Александр Силуянов",
+  role:"Руководитель Дирекции особо охраняемых природных территорий Ленинградской области",
+  topic:"Экологическая составляющая маршрута",
+  questions:[
+   "Почему важно развивать природный туризм в Ленинградской области?",
+   "Какие природные территории региона подходят для познавательных маршрутов?",
+   "Что необходимо учитывать при организации посещения природных объектов подростками?",
+   "Как заинтересовать молодёжь экологией и ответственным отношением к природе?"
+  ]
+ },
+ {
+  name:"Дмитрий Ялов",
+  role:"Заместитель председателя правительства Ленинградской области",
+  topic:"Туристический потенциал региона",
+  questions:[
+   "Какие направления туризма сегодня особенно перспективны для Ленинградской области?",
+   "Почему важно создавать отдельные туристические продукты для молодёжи?",
+   "Какие условия необходимы, чтобы новая туристическая инициатива получила развитие?",
+   "Какие возможности поддержки молодёжных проектов существуют в регионе?"
+  ]
+ },
+ {
+  name:"Алёна Сергеевна Голубь",
+  role:"Исполняющая обязанности руководителя ГБУ ЛО «Информационно-туристский центр»",
+  topic:"Развитие молодёжного туризма и продвижение маршрутов",
+  questions:[
+   "Какие туристические маршруты Ленинградской области уже ориентированы на подростков и школьные группы?",
+   "Какие природные и исторические территории подходят для развития молодёжного краеведения?",
+   "Как разместить информацию о новом маршруте на региональных туристических ресурсах?",
+   "Какие требования необходимо учитывать при разработке маршрута для школьных групп?",
+   "Какая поддержка возможна для запуска пилотного проекта?"
+  ]
+ },
+ {
+  name:"Александр Тихонович Моржинский",
+  role:"Образовательная составляющая",
+  topic:"Познавательные форматы для подростков",
+  questions:[
+   "Какие экскурсионные форматы могут заинтересовать современных школьников?",
+   "Как соединить отдых и образовательную составляющую путешествия?",
+   "Какие задания помогают вовлечь подростков в исследование территории?",
+   "Что важно учитывать при подготовке маршрута для школьной группы?"
+  ]
+ },
+ {
+  name:"Представитель СПбГУ",
+  role:"Возможный эксперт по исследовательской и образовательной составляющей",
+  topic:"Научная и методическая основа",
+  questions:[
+   "Зачем молодёжному туристско-краеведческому проекту экспертная поддержка университета?",
+   "Как проверить достоверность исторических и природных сведений, используемых в маршруте?",
+   "Какие исследовательские задания можно предложить подросткам?",
+   "По каким критериям можно оценить образовательный результат такого проекта?"
+  ]
+ },
+ {
+  name:"Представитель Всеволожского кранового завода",
+  role:"Возможный представитель предприятия-партнёра",
+  topic:"Социальное партнёрство и поддержка",
+  questions:[
+   "Почему предприятию может быть интересна поддержка молодёжного проекта?",
+   "Какие формы участия предприятия в социальной или образовательной инициативе возможны?",
+   "Что важно представить организации при обращении с предложением о сотрудничестве?",
+   "Как можно оценить результаты партнёрского участия в проекте?"
+  ]
+ }
+];
+
+document.getElementById("interviews-container").innerHTML = interviews.map(v=>`
+ <article class="interview">
+  <span class="tag pink">ВОПРОСЫ ЭКСПЕРТУ</span>
+  <h3>${v.name}</h3>
+  <p class="position">${v.role}</p>
+  <p style="font-size:12px;color:#777;margin-top:8px"><b>Тема:</b> ${v.topic}</p>
+  ${v.questions.map((q,i)=>`
+   <div class="question">
+    <b>${i+1}. ${q}</b>
+   </div>
+  `).join("")}
+ </article>
+`).join("");
+
+// БЮДЖЕТ
+const expenses = [
+ ["Печать карт и материалов",5000],
+ ["Канцелярия и задания",3000],
+ ["Информационное оформление",5000],
+ ["Транспортные расходы",10000],
+ ["Организационные расходы",5000],
+ ["Сопровождение и безопасность",12000],
+ ["Создание цифровых материалов",4000]
+];
+
+const budgetRows = document.getElementById("budget-rows");
+budgetRows.innerHTML = expenses.map((e,i)=>`
+ <label class="budget-row">
+  <span>${e[0]}</span>
+  <input type="number" min="0" step="500" value="${e[1]}" data-expense="${i}">
+ </label>
+`).join("");
+
+function calculateBudget() {
+ let total = 0;
+ document.querySelectorAll("[data-expense]").forEach(input=>{
+  total += Math.max(0,Number(input.value)||0);
+ });
+ document.getElementById("budget-total").textContent =
+  total.toLocaleString("ru-RU")+" ₽";
+}
+document.querySelectorAll("[data-expense]").forEach(input=>{
+ input.addEventListener("input",calculateBudget);
+});
+calculateBudget();
+
+// ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+function openPage(id) {
+ document.querySelectorAll(".page").forEach(p=>{
+  p.classList.toggle("active",p.id===id);
+ });
+ document.querySelectorAll("[data-page]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.page===id);
+ });
+ document.getElementById("navigation").classList.remove("open");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(button=>{
+ button.addEventListener("click",()=>openPage(button.dataset.page));
+});
+document.querySelectorAll("[data-open]").forEach(button=>{
+ button.addEventListener("click",()=>openPage(button.dataset.open));
+});
+document.getElementById("menu").addEventListener("click",()=>{
+ document.getElementById("navigation").classList.toggle("open");
+});
+
+// ИНТЕРАКТИВНАЯ КАРТА
+const places = {
+ oredezh:"Основная территория проекта. Здесь предполагается изучение природных особенностей, истории местности и возможностей для познавательных командных заданий.",
+ vsevolozhsk:"Всеволожск — территория, связанная с командой проекта и потенциальными партнёрскими организациями.",
+ gatchina:"Гатчина — пример историко-культурного направления Ленинградской области, которое может дополнять региональный контекст проекта."
+};
+document.querySelectorAll("[data-place],[data-point]").forEach(button=>{
+ button.addEventListener("click",()=>{
+  const id=button.dataset.place||button.dataset.point;
+  document.querySelectorAll("[data-place]").forEach(b=>{
+   b.classList.toggle("selected",b.dataset.place===id);
+  });
+  document.getElementById("place-info").innerHTML =
+   "<b>"+id.toUpperCase()+"</b><br>"+places[id];
+ });
+});
+</script>
+</body>
+</html>
+
+  
